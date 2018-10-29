@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
 #define MAXCHAR 1000
 
 int main()
@@ -8,7 +10,9 @@ int main()
   char str[MAXCHAR];
   int num_vines;
   char* filename = "./info.txt";
+  int random_num;
 
+  // Get the amount of vines we have
   fp = fopen(filename, "r");
   if (fp == NULL){
       printf("Could not open file %s",filename);
@@ -16,10 +20,14 @@ int main()
   }
 
   while (fgets(str, MAXCHAR, fp) != NULL)
-      printf("%s", str);
       num_vines = (int) strtol(str, (char **)NULL, 10);
-      printf("%d", num_vines == 10);
 
   fclose(fp);
+
+  // Decide which vine number to get
+  srand(time(NULL));
+  random_num = (rand() % num_vines) + 1;
+  printf("%d", random_num);
+
   return 0;
 }
